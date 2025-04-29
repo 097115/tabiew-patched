@@ -302,7 +302,7 @@ impl Styler for Terminal {
     }
 
     fn highlight(&self) -> Style {
-        Style::default().bg(Color::LightYellow).fg(Color::Black)
+        Style::default().bg(Color::Cyan).fg(Color::Black)
     }
 
     fn header(&self, _col: usize) -> Style {
@@ -318,11 +318,11 @@ impl Styler for Terminal {
                 Color::Cyan,
                 Color::Green,
             ][idx % 5])
-            .fg(Color::Gray)
+            .fg(Color::Black)
     }
 
     fn block_tag(&self) -> Style {
-        Style::default().bg(Color::LightYellow).fg(Color::Gray)
+        Style::default().bg(Color::Cyan).fg(Color::Black)
     }
 
     fn block(&self) -> Style {
