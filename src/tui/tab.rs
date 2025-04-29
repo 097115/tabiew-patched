@@ -95,7 +95,7 @@ impl Tab {
     pub fn new() -> Self {
         Self {
             selection: false,
-            borders: true,
+            borders: false,
         }
     }
 

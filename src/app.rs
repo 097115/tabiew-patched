@@ -72,7 +72,7 @@ impl App {
             content: Content::Tabulars,
             error: None,
             pallete: None,
-            borders: true,
+            borders: false,
             running: true,
         }
     }
