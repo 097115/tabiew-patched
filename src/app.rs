@@ -76,7 +76,7 @@ impl App {
             content: Content::Tabulars,
             error: None,
             palette: None,
-            borders: true,
+            borders: false,
             running: true,
         }
     }
