@@ -1,0 +1,45 @@
+name: Release
+
+permissions:
+  contents: write
+
+on:
+  push:
+    tags:
+      - "*"
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  linux-x86-64-dist:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout to the latest version
+        uses: actions/checkout@v4
+
+      - name: Version
+        run: |
+          VERSION=${{ github.ref_name }}
+          sed -i "s/^version = .*/version = \"${VERSION#v*}\"/g" Cargo.toml
+
+      - name: Build
+        run: |
+          cargo build --release --verbose
+
+      - name: Package
+        shell: bash
+        run: |
+          cd target/
+          cd release
+          cp ../manual/tabiew.1 ./
+          tar czvf tw-${{ github.ref_name }}.tar.gz tw tabiew.1
+          shasum -a 256 tw-${{ github.ref_name }}.tar.gz > tw-${{ github.ref_name }}.sha256
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: target/release/tw-${{ github.ref_name }}.*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
